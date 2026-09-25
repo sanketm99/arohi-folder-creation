@@ -73,8 +73,17 @@ async function authRoute(request: Request, env: Env, url: URL): Promise<Response
  */
 async function page(request: Request, env: Env, url: URL): Promise<Response> {
   const isAppPage = url.pathname === "/" || url.pathname === "/index.html";
+  // The raw pages are only ever served through this gate.
+  if (url.pathname === "/login" || url.pathname === "/login.html") {
+    return Response.redirect(new URL("/", url.origin).toString(), 302);
+  }
   if (isAppPage && !(await currentUser(request, env))) {
-    const login = await env.ASSETS.fetch(new Request(new URL("/login.html", url.origin), request));
+    // Cloudflare serves "login.html" at "/login" (and redirects the .html form),
+    // so ask for "/login" and follow one redirect to be safe in either setup.
+    let login = await env.ASSETS.fetch(new Request(new URL("/login", url.origin), { method: "GET" }));
+    const location = login.status >= 300 && login.status < 400 ? login.headers.get("location") : null;
+    if (location) login = await env.ASSETS.fetch(new Request(new URL(location, url.origin), { method: "GET" }));
+    if (!login.ok) throw new HttpError(500, "The sign-in page is missing from this deployment.");
     return new Response(login.body, {
       status: 200,
       headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" },

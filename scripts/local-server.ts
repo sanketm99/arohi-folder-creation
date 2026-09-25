@@ -74,7 +74,9 @@ const CONTENT_TYPES: Record<string, string> = {
 const assets = {
   async fetch(input: RequestInfo | URL): Promise<Response> {
     const url = new URL(input instanceof Request ? input.url : String(input));
-    const pathname = decodeURIComponent(url.pathname === "/" ? "/index.html" : url.pathname);
+    let pathname = decodeURIComponent(url.pathname === "/" ? "/index.html" : url.pathname);
+    // Like Cloudflare's asset handling: "/login" serves "login.html".
+    if (!extname(pathname) && existsSync(resolve(PUBLIC_DIR, `.${pathname}.html`))) pathname += ".html";
     const filePath = resolve(PUBLIC_DIR, `.${pathname}`);
     if (!filePath.startsWith(PUBLIC_DIR + sep) || pathname.startsWith("/_")) {
       return new Response("Not found", { status: 404 });
