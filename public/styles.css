@@ -1,0 +1,203 @@
+/* ==========================================================================
+   Company Research — app layer on top of arohi.css.
+   Uses the design-system tokens only: navy, gold, sand, sunrise, white and the
+   surface/ink tokens. No new colours, per the brand guidelines.
+   ========================================================================== */
+
+[hidden] { display: none !important; }
+
+/* --- Sign-in page --------------------------------------------------------- */
+/* Warm brand wash behind a white card. Approved palette only: off-white base,
+   sunrise and gold glows. Background use only, per the brand guidelines. */
+.login-page {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 40px 20px;
+  background:
+    radial-gradient(60% 55% at 78% 88%, rgba(233, 130, 0, 0.42) 0%, rgba(233, 198, 135, 0) 70%),
+    radial-gradient(55% 45% at 12% 82%, rgba(233, 198, 135, 0.5) 0%, rgba(233, 198, 135, 0) 72%),
+    radial-gradient(70% 60% at 50% 10%, rgba(242, 240, 235, 0.9) 0%, rgba(255, 255, 255, 0) 70%),
+    var(--white);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 44px 44px 38px;
+  text-align: center;
+}
+
+.login-mark {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 34px;
+  letter-spacing: 0.12em;
+  color: var(--navy);
+}
+
+.login-eyebrow { margin: 14px 0 26px; }
+
+.login-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 13px 26px;
+  font-size: 14px;
+  color: var(--white);
+}
+
+.login-button:hover { color: var(--white); }
+.ms-logo { flex-shrink: 0; }
+
+.login-error { margin: 22px auto 0; text-align: left; }
+.login-rule { margin: 30px 0 18px; border: 0; border-top: 1px solid var(--hairline); }
+
+.login-note {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.login-footer {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--meta);
+}
+
+@media (max-width: 560px) {
+  .login-card { padding: 32px 24px 28px; }
+  .login-mark { font-size: 28px; }
+}
+
+/* --- Run form ------------------------------------------------------------- */
+.run-form { margin-top: 14px; padding: 22px 24px 24px; }
+.run-form .form-grid { margin-top: 0; align-items: start; }
+.run-form label { display: block; }
+.run-form .field-input { width: 100%; }
+.run-form select.field-input { height: 40px; }
+#addCountryToggle { display: block; margin-top: 8px; padding-left: 0; }
+
+.run-actions { align-items: center; margin-top: 20px; }
+.run-status { margin: 0; }
+.run-status.error { color: var(--gold); font-weight: 600; }
+
+.check { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13.5px; color: var(--body-text); }
+
+.add-country { display: block; }
+.add-country-field { display: block; max-width: 340px; }
+.add-country .form-actions { align-items: center; }
+.add-country-status { margin: 0; }
+.add-country-status.error { color: var(--gold); font-weight: 600; }
+
+/* --- Steps ---------------------------------------------------------------- */
+.steps { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+
+@media (min-width: 1040px) {
+  .steps { grid-template-columns: repeat(5, 1fr); }
+  .metrics { grid-template-columns: repeat(4, 1fr); }
+}
+
+.step {
+  min-width: 0;
+  background: var(--surface-card);
+  border: 1px solid var(--tile-border);
+  border-left: 3px solid var(--tile-border);
+  border-radius: 4px;
+  box-shadow: var(--card-shadow);
+  padding: 18px 20px;
+}
+
+.step .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cat-rule);
+  margin-bottom: 12px;
+}
+
+.step .tile-name { font-size: 15px; }
+.step-note { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+.step-status { font-weight: 600; letter-spacing: 0.04em; }
+.step.active .step-status, .step.failed .step-status { color: var(--gold); }
+.step.done .step-status { color: var(--navy); }
+
+/* Running: the page's live item takes the gold edge, as the featured tile does. */
+.step.active { border-left-color: var(--gold); }
+.step.active .dot { background: var(--gold); box-shadow: 0 0 0 4px rgba(233, 130, 0, 0.16); }
+
+/* Finished: navy, the resting brand colour. */
+.step.done { border-left-color: var(--navy); }
+.step.done .dot { background: var(--navy); }
+
+/* Problem: gold, not red — an error still belongs to the page. */
+.step.failed { border-left-color: var(--gold); border-color: var(--gold); }
+.step.failed .dot { background: var(--gold); }
+
+/* --- Progress ------------------------------------------------------------- */
+.bar {
+  height: 4px;
+  margin-top: 18px;
+  background: var(--surface-tint);
+  border: 1px solid var(--hairline);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.bar > div { height: 100%; width: 0; background: var(--gold); transition: width 0.25s; }
+
+/* --- Metrics -------------------------------------------------------------- */
+.metrics { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-top: 14px; }
+
+.metric {
+  background: var(--surface-card);
+  border: 1px solid var(--tile-border);
+  border-radius: 4px;
+  box-shadow: var(--card-shadow);
+  padding: 18px 20px;
+}
+
+.metric b {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 1.1;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+/* --- Activity log --------------------------------------------------------- */
+.log {
+  max-height: 340px;
+  overflow: auto;
+  padding: 6px 24px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--body-text);
+}
+
+.log > div {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.log > div:last-child { border-bottom: none; }
+.log .success { color: var(--navy); font-weight: 600; }
+.log .error { color: var(--gold); font-weight: 600; }
+
+/* --- Responsive ----------------------------------------------------------- */
+@media (max-width: 860px) {
+  .run-form .form-grid { grid-template-columns: 1fr; gap: 14px; }
+  .steps, .metrics { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .steps, .metrics { grid-template-columns: 1fr; }
+}

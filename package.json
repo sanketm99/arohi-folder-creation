@@ -1,0 +1,28 @@
+{
+  "name": "company-research",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Collects FactSet company research documents and uploads them to SharePoint. Runs on Cloudflare Workers.",
+  "scripts": {
+    "build:client": "esbuild src/client/app.ts src/client/login.ts --bundle --format=esm --target=es2022 --minify --sourcemap --outdir=public",
+    "dev": "wrangler dev",
+    "dev:local": "npm run build:client && esbuild scripts/local-server.ts --bundle --platform=node --format=esm --outfile=.local/server.mjs --log-level=warning && node .local/server.mjs",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc -p src/worker && tsc -p src/client && tsc -p .",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm test"
+  },
+  "dependencies": {
+    "jose": "^6.2.12",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260917.1",
+    "@xmldom/xmldom": "^0.9.12",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1",
+    "wrangler": "^4.133.0"
+  }
+}

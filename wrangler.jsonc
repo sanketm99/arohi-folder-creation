@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "company-research",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  // Bundles the browser app into public/app.js before every `wrangler dev` / `wrangler deploy`.
+  "build": {
+    "command": "npm run build:client"
+  },
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // Non-secret defaults only. Everything sensitive is set with `wrangler secret put`
+  // (or in the Cloudflare dashboard) — see README.md.
+  "vars": {
+    "APP_MODE": "production"
+  }
+}

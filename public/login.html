@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sign in · Company Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/arohi.css">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/login.js"></script>
+</head>
+<body class="login-page">
+  <main class="login-card card">
+    <div class="login-mark">AROHI</div>
+    <div class="eyebrow login-eyebrow">Company Research</div>
+
+    <a class="btn login-button" href="/auth/login">
+      <svg class="ms-logo" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+        <rect width="8" height="8" x="0" y="0" fill="#f25022"/>
+        <rect width="8" height="8" x="10" y="0" fill="#7fba00"/>
+        <rect width="8" height="8" x="0" y="10" fill="#00a4ef"/>
+        <rect width="8" height="8" x="10" y="10" fill="#ffb900"/>
+      </svg>
+      Sign in with Microsoft
+    </a>
+
+    <p id="loginError" class="notice error login-error" role="alert" hidden></p>
+
+    <hr class="login-rule">
+    <p class="login-note">Single sign-on through Microsoft Entra ID. Sign-in completes on the server;
+      no token or password is held in this browser.</p>
+  </main>
+
+  <p class="login-footer">Arohi Asset Management Pte Ltd · Internal use only</p>
+</body>
+</html>

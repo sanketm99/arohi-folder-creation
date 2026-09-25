@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Company Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/arohi.css">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-eyebrow">AROHI</div>
+    <nav class="nav">
+      <span class="nav-item active">Company Research</span>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar" id="topbar" hidden>
+      <div>
+        <div class="topbar-name" id="userName"></div>
+        <div class="topbar-role" id="userEmail"></div>
+      </div>
+      <div class="avatar lg" id="userInitials"></div>
+      <form method="post" action="/auth/logout"><button class="quiet" type="submit">Sign out</button></form>
+    </div>
+
+    <div class="eyebrow">Research operations</div>
+    <h1>Company Research</h1>
+    <p class="page-sub">Collect a company's FactSet filings and earnings-call transcripts, and file them
+      straight into the SharePoint research folders.</p>
+
+    <form id="form" novalidate>
+      <div class="section-head">
+        <span class="section-label">New run</span>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="card run-form">
+        <div class="form-grid">
+          <label>
+            <div class="field-label">Company name</div>
+            <input id="company" class="field-input" name="company" placeholder="e.g. PB Fintech"
+                   autocomplete="off" required maxlength="200">
+          </label>
+          <label>
+            <div class="field-label">Country</div>
+            <select id="country" class="field-input" name="country"></select>
+            <button id="addCountryToggle" type="button" class="quiet">+ Add a country</button>
+          </label>
+        </div>
+
+        <div id="addCountryRow" class="disclosure add-country" hidden>
+          <label class="add-country-field">
+            <div class="field-label">New country</div>
+            <input id="newCountry" class="field-input" placeholder="e.g. Saudi Arabia" autocomplete="off" maxlength="60">
+          </label>
+          <div class="form-actions">
+            <button id="addCountry" type="button" class="btn secondary">Add</button>
+            <button id="cancelCountry" type="button" class="quiet">Cancel</button>
+            <span id="addCountryStatus" class="hint add-country-status" role="status"></span>
+          </div>
+          <p class="hint">Creates the country folder in the Rest of World library, where everyone will see it.</p>
+        </div>
+
+        <details id="testingOptions" class="disclosure" hidden>
+          <summary>Testing options</summary>
+          <label class="check"><input id="allowExisting" type="checkbox"> Use existing company folder</label>
+        </details>
+
+        <div class="form-actions run-actions">
+          <button id="start" class="btn" type="submit" disabled>Start research</button>
+          <span id="status" class="hint run-status" role="status">Loading…</span>
+        </div>
+      </div>
+    </form>
+
+    <section id="runPanel" hidden>
+      <div class="section-head">
+        <span class="section-label">Progress</span>
+        <div class="section-rule"></div>
+        <span id="folderLink" class="section-action" hidden></span>
+      </div>
+
+      <div class="tile-grid steps">
+        <div class="step" id="step-setup"><div class="dot"></div><div class="tile-name">Setup</div><p class="step-note">Find company, prepare folders</p><p class="step-note step-status">Waiting</p></div>
+        <div class="step" id="step-annual"><div class="dot"></div><div class="tile-name">Annual reports</div><p class="step-note">Annual Filings</p><p class="step-note step-status">Waiting</p></div>
+        <div class="step" id="step-results"><div class="dot"></div><div class="tile-name">Results</div><p class="step-note">Quarterly Filings / Results</p><p class="step-note step-status">Waiting</p></div>
+        <div class="step" id="step-presentations"><div class="dot"></div><div class="tile-name">Presentations</div><p class="step-note">Company Reports / Presentations</p><p class="step-note step-status">Waiting</p></div>
+        <div class="step" id="step-transcripts"><div class="dot"></div><div class="tile-name">Transcripts</div><p class="step-note">Quarterly Filings / Transcript</p><p class="step-note step-status">Waiting</p></div>
+      </div>
+
+      <div class="bar"><div id="bar"></div></div>
+
+      <div class="tile-grid metrics">
+        <div class="metric"><b id="found">0</b><span class="field-label">Documents found</span></div>
+        <div class="metric"><b id="uploaded">0</b><span class="field-label">Files uploaded</span></div>
+        <div class="metric"><b id="progress">0 / 0</b><span class="field-label">Processed</span></div>
+        <div class="metric"><b id="errors">0</b><span class="field-label">Errors</span></div>
+      </div>
+
+      <div class="section-head">
+        <span class="section-label">Activity</span>
+        <div class="section-rule"></div>
+      </div>
+      <div class="card">
+        <div id="log" class="log" aria-label="Activity" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

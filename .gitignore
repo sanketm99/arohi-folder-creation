@@ -1,0 +1,73 @@
+# ---------------------------------------------------------------------------
+# Secrets — never commit. Real values live in .dev.vars locally and in
+# Cloudflare Secrets when deployed. Only .dev.vars.example (placeholders) is tracked.
+# ---------------------------------------------------------------------------
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.env
+.env.*
+!.env.example
+*.local
+
+# Credentials, keys and certificates of any kind
+*.pem
+*.key
+*.pfx
+*.p12
+*.cer
+*.crt
+*.jks
+*.keystore
+secrets.json
+credentials.json
+client_secret*.json
+*service-account*.json
+.netrc
+.npmrc
+
+# Cloudflare / Wrangler
+.wrangler/
+.dev.vars.production
+wrangler.toml.local
+
+# ---------------------------------------------------------------------------
+# Build output and dependencies
+# ---------------------------------------------------------------------------
+node_modules/
+dist/
+.local/
+
+# Built by `npm run build:client`
+public/app.js
+public/app.js.map
+public/login.js
+public/login.js.map
+
+# ---------------------------------------------------------------------------
+# Downloaded or generated documents — research PDFs belong in SharePoint, not git
+# ---------------------------------------------------------------------------
+*.pdf
+downloads/
+data/
+tmp/
+temp/
+
+# Original Python prototype (contains the Kavi/Third Bridge scrapers and
+# hard-coded SharePoint drive IDs; kept locally only)
+company_research_v24.py
+
+# ---------------------------------------------------------------------------
+# Editor and OS noise
+# ---------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*

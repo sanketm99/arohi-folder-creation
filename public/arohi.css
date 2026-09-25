@@ -1,0 +1,664 @@
+/* ==========================================================================
+   AROHI design system — starter stylesheet for a NEW app
+   Snapshot pinned 2026-09-05 from the portal's src/index.css (commit 156c14d).
+   Read DESIGN_SYSTEM.md for the reasoning. Copy this file into a new project,
+   add the two Google Fonts (see DESIGN_SYSTEM.md §2), build .layout > .sidebar
+   + .main, and you're on-brand. Extend it; don't fork the tokens.
+   ========================================================================== */
+
+:root {
+  /* Brand */
+  --navy: #1b1d32;
+  --offwhite: #f2f0eb;
+  --sand: #d8cebc;
+  --gold: #e98200;
+  --sunrise: #e9c687;
+  --white: #ffffff;
+
+  /* Surfaces — cool porcelain on a white page. A WARM tint beside white reads
+     as a colour cast; a COOL one reads as shadow, i.e. depth. The SIDEBAR is
+     the deliberate exception: brand beige, so navigation reads as chrome and
+     gives the white content its contrast. */
+  --surface-card: #ffffff;
+  --surface-tint: #f5f7fa;
+  --surface-chrome: #f2f0eb;
+
+  /* Lines and lift */
+  --edge: #e4e8f1;
+  --hairline: #edeff4;
+  --tile-border: #e4e8f1;
+  --cat-rule: #dfe4ee;
+  --dashed-border: #d5dbe6;
+  --row-divider: #edeff4;
+  --card-shadow: 0 1px 2px rgba(27, 29, 50, 0.04),
+    0 12px 28px -20px rgba(27, 29, 50, 0.28);
+
+  /* Ink */
+  --body-text: #5b6076;
+  --meta: #616891;
+  --muted: #8b93a7;
+
+  /* Sidebar-only */
+  --nav-active-bg: #ffffff;
+  --sidebar-divider: #e4e0d6; /* warm, to sit on the beige */
+
+  /* Data tables */
+  --table-header-ink: #4d5470;
+  --table-hover: #fafbfd;
+
+  /* The one deliberately WARM content surface (a celebratory panel). */
+  --bday-surface: #fdf7ec;
+  --bday-edge: #f1e6d2;
+  --bday-meta: #726b5c;
+
+  --serif: 'Source Serif Pro', Georgia, serif;
+  --sans: 'Source Sans Pro', Arial, sans-serif;
+}
+
+/* --- Base ----------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--navy);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--navy);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+input::placeholder {
+  color: var(--muted);
+}
+
+/* --- Layout skeleton ------------------------------------------------------ */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 236px;
+  flex-shrink: 0;
+  background: var(--surface-chrome);
+  border-right: 1px solid var(--tile-border);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0 24px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar-logo {
+  height: 24px;
+  width: auto;
+  align-self: flex-start;
+  margin: 0 26px 6px;
+}
+
+.sidebar-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 6px 26px 26px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item {
+  font-size: 14px;
+  padding: 10px 26px;
+  border-left: 3px solid transparent;
+  color: var(--navy);
+}
+
+.nav-item:hover {
+  color: var(--gold);
+}
+
+.nav-item.active {
+  border-left-color: var(--gold);
+  background: var(--surface-card);
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  /* Fluid gutters: ~52px on a laptop, 72px on a wide monitor. */
+  padding: 44px clamp(44px, 3.4vw, 72px) 64px;
+  max-width: 1720px;
+  margin: 0 auto;
+}
+
+/* Signed-in user, top right */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: -12px 0 22px;
+}
+
+.topbar-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.topbar-role {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+/* --- Page typography ------------------------------------------------------ */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 38px;
+  line-height: 1.05;
+  color: var(--navy);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.page-sub {
+  font-size: 14px;
+  color: var(--body-text);
+  margin: 12px 0 0;
+  max-width: 60ch;
+}
+
+/* Section header: label · rule · optional gold action */
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.section-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--cat-rule);
+}
+
+.section-action {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+/* --- Surfaces ------------------------------------------------------------- */
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--tile-border);
+  border-radius: 4px;
+  box-shadow: var(--card-shadow);
+}
+
+.tile-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+.tile {
+  min-width: 0;
+  background: var(--surface-card);
+  border: 1px solid var(--tile-border);
+  border-radius: 4px;
+  box-shadow: var(--card-shadow);
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.tile:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(27, 29, 50, 0.1);
+}
+
+/* The featured item: a gold left edge, never a filled tile. */
+.tile.primary {
+  border-left: 3px solid var(--gold);
+  padding-left: 22px; /* 24px minus the 2px the thicker edge adds */
+}
+
+.tile-name {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.15;
+  color: var(--navy);
+}
+
+/* Warm exception — one per app, and only with a reason as good as birthdays. */
+.warm-card {
+  background: var(--bday-surface);
+  border: 1px solid var(--bday-edge);
+  border-radius: 4px;
+  box-shadow: var(--card-shadow);
+  padding: 18px 20px;
+}
+
+.warm-card .meta {
+  color: var(--bday-meta);
+}
+
+/* --- Controls ------------------------------------------------------------- */
+.btn {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid var(--navy);
+  background: var(--navy);
+  color: var(--white);
+  transition: opacity 0.15s;
+}
+
+.btn:hover {
+  opacity: 0.88;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btn.secondary {
+  background: var(--surface-card);
+  color: var(--navy);
+  border-color: var(--tile-border);
+}
+
+/* A text-only button: the default for anything that isn't the page's one
+   primary action. */
+.quiet {
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--meta);
+  cursor: pointer;
+}
+
+.quiet:hover {
+  color: var(--gold);
+}
+
+.quiet.primary {
+  color: var(--gold);
+}
+
+.chip {
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: var(--sans);
+  padding: 7px 14px;
+  border-radius: 100px;
+  cursor: pointer;
+  background: var(--surface-tint);
+  color: var(--navy);
+  border: 1px solid var(--tile-border);
+}
+
+.chip.active {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+/* --- Forms ---------------------------------------------------------------- */
+.field-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field-input {
+  background: var(--surface-card);
+  border: 1px solid var(--tile-border);
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: var(--sans);
+  color: var(--navy);
+}
+
+.field-input:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: -1px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+  align-items: end; /* plain inputs line up with taller labelled fields */
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* An optional, admin-ish thing folded away until wanted. */
+.disclosure {
+  margin-top: 8px;
+  border: 1px solid var(--tile-border);
+  border-radius: 6px;
+  background: var(--surface-tint);
+  padding: 12px 14px;
+}
+
+.disclosure summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+
+/* --- Feedback ------------------------------------------------------------- */
+.notice {
+  margin-top: 22px;
+  background: var(--surface-tint);
+  border: 1px solid var(--tile-border);
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--body-text);
+  max-width: 760px;
+}
+
+/* Gold, not red: an error still belongs to the page. */
+.notice.error {
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+.empty-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--cat-rule);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- People --------------------------------------------------------------- */
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.avatar.lg {
+  width: 38px;
+  height: 38px;
+  font-size: 12.5px;
+}
+
+.avatar.sm {
+  width: 30px;
+  height: 30px;
+  font-size: 11.5px;
+}
+
+/* --- Tables (inside one .card) -------------------------------------------- */
+.table-head,
+.table-row {
+  display: grid;
+  gap: 16px;
+  padding: 12px 24px;
+  align-items: center;
+}
+
+.table-head {
+  border-bottom: 1px solid var(--tile-border);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.table-row {
+  padding: 15px 24px;
+  border-bottom: 1px solid var(--row-divider);
+  font-size: 14px;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-row:hover {
+  background: var(--table-hover);
+}
+
+/* --- Editorial list (no container; hairlines) ----------------------------- */
+.ed-featured {
+  padding: 22px 0 26px;
+  border-bottom: 1px solid var(--edge);
+}
+
+.ed-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.ed-headline {
+  margin: 10px 0 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 1.25;
+  color: var(--navy);
+}
+
+.ed-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  width: 100%;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--hairline);
+  background: none;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  text-align: left;
+  font-family: var(--sans);
+  cursor: pointer;
+}
+
+.ed-row-who {
+  flex: 0 0 96px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--meta);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ed-row-text {
+  flex: 1;
+  min-width: 120px;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--navy);
+}
+
+.ed-row-when {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.ed-viewall {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 0 0 3px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(233, 130, 0, 0.4);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  cursor: pointer;
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .tile-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  /* Sidebar collapses into a top bar with a horizontally scrollable nav. */
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 18px 0 0;
+  }
+
+  .sidebar-logo {
+    margin: 0 22px 4px;
+  }
+
+  .sidebar-eyebrow {
+    margin: 4px 22px 14px;
+  }
+
+  .nav {
+    flex-direction: row;
+    overflow-x: auto;
+    border-top: 1px solid var(--tile-border);
+  }
+
+  .nav-item {
+    padding: 12px 16px;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+  }
+
+  .nav-item.active {
+    background: transparent;
+    border-bottom-color: var(--gold);
+  }
+
+  .main {
+    padding: 28px 22px 48px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .ed-headline {
+    font-size: 22px;
+  }
+
+  .tile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Touch devices have no hover: anything revealed on hover must show anyway. */
+@media (hover: none) {
+  .reveal-on-hover {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,50 @@
+# Copy to `.dev.vars` for local development (`npm run dev`). `.dev.vars` is git-ignored.
+# In Cloudflare, set each of these with `npx wrangler secret put <NAME>` or in the dashboard.
+
+# development | uat | production
+# development/uat show the "Use existing company folder" testing option.
+APP_MODE=development
+
+# Local development only: skips Microsoft sign-in.
+# Ignored unless APP_MODE=development.
+ALLOW_UNAUTHENTICATED=true
+
+# Microsoft Entra ID single sign-on.
+# By default this reuses the MS_* app registration below — just add a Web redirect URI
+# https://<your-site>/auth/callback to it in Entra. Set these only to use a separate
+# registration for signing users in.
+AUTH_CLIENT_ID=
+AUTH_CLIENT_SECRET=
+AUTH_TENANT_ID=
+# Optional: only when the redirect URI is not <site>/auth/callback
+AUTH_REDIRECT_URI=
+
+# Signs this app's session cookie. Any long random string, e.g.
+# node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"
+SESSION_SECRET=
+
+# Optional: restrict who may sign in, e.g. arohi.com. Empty means anyone in the tenant.
+ALLOWED_EMAIL_DOMAINS=
+
+# Microsoft Graph app registration (SharePoint)
+MS_TENANT_ID=
+MS_CLIENT_ID=
+MS_CLIENT_SECRET=
+
+# SharePoint drive IDs
+INDIA_DRIVE_ID=
+CHINAHK_DRIVE_ID=
+ROW_DRIVE_ID=
+
+# Optional: comma-separated folders in the Rest of World library that are NOT countries,
+# so they stay out of the country dropdown. Folders starting with "_" are always ignored.
+# Defaults to: AI Trackers,Li Auto,Memory
+EXCLUDED_COUNTRY_FOLDERS=
+
+# FactSet
+FACTSET_USERNAME=
+FACTSET_API_KEY=
+
+# Arohi entity search (company name -> FactSet entity id)
+AROHI_API_KEY=
+AROHI_ENTITY_SEARCH_URL=
